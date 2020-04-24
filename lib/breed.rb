@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require 'csv'
+require 'net/http'
+
 # Searches breed image and saves it to
 # separate CVS file within timestamp folder
 class Breed
