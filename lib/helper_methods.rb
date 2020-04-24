@@ -10,7 +10,6 @@ def pooling(array, threads, filepath)
   array.each do |element|
     pool.process do
       Breed.new(element).sniff_n_cage(filepath)
-      puts Breed.new(element).fetch_image_url
     end
   end
 

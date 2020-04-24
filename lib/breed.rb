@@ -2,12 +2,14 @@
 
 require 'csv'
 require 'net/http'
+require_relative 'api_client'
 
 # Searches breed image and saves it to
 # separate CVS file within timestamp folder
 class Breed
   def initialize(name)
     @name = name
+    @client = ApiClient.new
   end
 
   def sniff_n_cage(filepath)
@@ -25,11 +27,6 @@ class Breed
   end
 
   def fetch_image_url
-    url = "https://dog.ceo/api/breed/#{@name}/images/random"
-    uri = URI(url)
-    response = Net::HTTP.get(uri)
-    return 'not found' if JSON.parse(response)['status'] != 'success'
-
-    JSON.parse(response)['message']
+    @client.fetch_random_image(@name)
   end
 end
