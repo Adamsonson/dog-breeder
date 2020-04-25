@@ -2,19 +2,19 @@
 
 require 'spec_helper'
 describe 'Dog Breed' do
-  context 'to parse API with' do
+  context 'to parse image API with' do
     let(:client) { ApiClient.new }
 
     context 'incorrect input name' do
-      let(:image)  { 'not found' }
+      let(:image)  { 'Breed not found (master breed does not exist)' }
       let(:name)   { 'huskyy' }
 
       it 'returns not found status' do
-        allow(client).to receive(:fetch_random_image)
+        allow(client).to receive(:fetch_all_images)
           .with(name)
           .and_return(image)
 
-        response = Breed.new(name).fetch_image_url
+        response = Breed.new(name).fetch_images
 
         expect(response).to eq image
       end
@@ -24,14 +24,13 @@ describe 'Dog Breed' do
       let(:image)  { 'https://images.dog.ceo/breeds/husky/' }
       let(:name)   { 'husky' }
 
-      it 'returns image url' do
-        allow(client).to receive(:fetch_random_image)
+      it 'returns array of image urls' do
+        allow(client).to receive(:fetch_all_images)
           .with(name)
           .and_return(image)
 
-        response = Breed.new(name).fetch_image_url
-
-        expect(response).to include(image)
+        response = Breed.new(name).fetch_images
+        expect(response).to be_a(Array).and all include(image)
       end
     end
   end
