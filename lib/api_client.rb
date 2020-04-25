@@ -1,5 +1,7 @@
 # frozen_string_literal: true
 
+require 'json'
+
 # Communicates to API
 class ApiClient
   def fetch_random_image(attribute)
