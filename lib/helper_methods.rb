@@ -9,7 +9,7 @@ def pooling(array, threads, filepath)
 
   array.each do |element|
     pool.process do
-      Breed.new(element).sniff_n_cage(filepath)
+      Breed.new(element).save_to_csv(filepath)
     end
   end
 
